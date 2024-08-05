@@ -44,20 +44,24 @@ public class ProductsServices {
         return priceHistoryRepo.findByProductId(productId);
     }
 
+
     public void updatePriceAtActive(List<Campaign> activeCampaigns) {
         for (Campaign campaign : activeCampaigns) {
             for (CampingDiscount discount : campaign.getCampingDiscounts()) {
                 Products product = productsRepo.findById(discount.getProductId()).orElse(null);
                 if (product != null) {
+                    // Save price history
                     PriceHistory priceHistory = new PriceHistory();
                     priceHistory.setProductId(product.getId());
                     priceHistory.setPrice(product.getCurrent_price());
                     priceHistory.setDate(new Date());
                     priceHistoryRepo.save(priceHistory);
 
+                    // Update product price and discount
                     int discountAmount = product.getMrp() * discount.getDiscount() / 100;
-                    int newPrice = product.getCurrent_price() - discountAmount;
+                    int newPrice = product.getMrp() - discountAmount;
                     product.setCurrent_price(newPrice);
+                    product.setDiscount(discount.getDiscount());
                     productsRepo.save(product);
                 }
             }
@@ -69,13 +73,16 @@ public class ProductsServices {
             for (CampingDiscount discount : campaign.getCampingDiscounts()) {
                 Products product = productsRepo.findById(discount.getProductId()).orElse(null);
                 if (product != null) {
+                    // Save price history
                     PriceHistory priceHistory = new PriceHistory();
                     priceHistory.setProductId(product.getId());
                     priceHistory.setPrice(product.getCurrent_price());
                     priceHistory.setDate(new Date());
                     priceHistoryRepo.save(priceHistory);
 
+                    // Reset product price and discount
                     product.setCurrent_price(product.getMrp());
+                    product.setDiscount(0);
                     productsRepo.save(product);
                 }
             }

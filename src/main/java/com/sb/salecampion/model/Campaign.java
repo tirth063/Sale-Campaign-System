@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "campaign_id")
     private int id;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String title;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "campaign")
@@ -24,7 +25,7 @@ public class Campaign {
     public Campaign() {
     }
 
-    public Campaign(int id, Date startDate, Date endDate, String title, List<CampingDiscount> campingDiscounts) {
+    public Campaign(int id, LocalDate startDate, LocalDate endDate, String title, List<CampingDiscount> campingDiscounts) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -40,19 +41,19 @@ public class Campaign {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

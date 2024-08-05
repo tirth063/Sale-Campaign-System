@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 public class CampingDiscount {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int campaigDiscountId;
     private int productId;
     private int discount;
 
@@ -20,6 +22,14 @@ public class CampingDiscount {
     public CampingDiscount(int productId, int discount) {
         this.productId = productId;
         this.discount = discount;
+    }
+
+    public int getCampaigDiscountId() {
+        return campaigDiscountId;
+    }
+
+    public void setCampaigDiscountId(int campaigDiscountId) {
+        this.campaigDiscountId = campaigDiscountId;
     }
 
     public int getProductId() {
