@@ -1,5 +1,7 @@
 package com.sb.salecampion.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +21,8 @@ public class Campaign {
     private LocalDate endDate;
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "campaign")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, mappedBy = "campaign")
+    @JsonManagedReference
     private List<CampingDiscount> campingDiscounts;
 
     public Campaign() {

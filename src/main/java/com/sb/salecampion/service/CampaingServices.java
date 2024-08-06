@@ -16,7 +16,6 @@ public class CampaingServices {
         this.campaingRepo = campaingRepo;
     }
 
-    // Save a single campaign
     public Campaign saveCampaing(Campaign campaing) {
         for (CampingDiscount discount : campaing.getCampingDiscounts()){
             discount.setCampaign(campaing);

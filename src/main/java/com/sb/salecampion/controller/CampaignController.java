@@ -1,5 +1,6 @@
 package com.sb.salecampion.controller;
 import com.sb.salecampion.model.Campaign;
+import com.sb.salecampion.model.CampingDiscount;
 import com.sb.salecampion.service.CampaingServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,16 @@ public class CampaignController {
 
     @PostMapping("/bulk")
     public ResponseEntity<List<Campaign>> createCampaigns(@RequestBody List<Campaign> campaigns) {
+        for (Campaign campaign : campaigns) {
+            for (CampingDiscount discount : campaign.getCampingDiscounts()) {
+                discount.setCampaign(campaign);
+            }
+        }
+
         List<Campaign> savedCampaigns = campaingServices.saveAllCampaigns(campaigns);
         return ResponseEntity.ok(savedCampaigns);
     }
+
 
     @GetMapping
     public List<Campaign> getAllCampaigns() {

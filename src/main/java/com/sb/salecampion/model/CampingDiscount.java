@@ -1,5 +1,7 @@
 package com.sb.salecampion.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class CampingDiscount {
 
     @ManyToOne
     @JoinColumn(name = "campaign_id")
+    @JsonBackReference
     private Campaign campaign;
 
     public CampingDiscount() {
